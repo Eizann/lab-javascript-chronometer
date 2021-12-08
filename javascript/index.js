@@ -14,52 +14,79 @@ const milUniElement = document.getElementById('milUni');
 const splitsElement = document.getElementById('splits');
 
 function printTime() {
-  // ... your code goes here
+  printMinutes();
+  printSeconds();
 }
 
 function printMinutes() {
-  // ... your code goes here
+  minDecElement.innerHTML = chronometer.computeTwoDigitNumber(chronometer.getMinutes())[0];
+  minUniElement.innerHTML = chronometer.computeTwoDigitNumber(chronometer.getMinutes())[1];
 }
 
 function printSeconds() {
-  // ... your code goes here
+  secDecElement.innerHTML = chronometer.computeTwoDigitNumber(chronometer.getSeconds())[0];
+  secUniElement.innerHTML = chronometer.computeTwoDigitNumber(chronometer.getSeconds())[1];
 }
+
 
 // ==> BONUS
 function printMilliseconds() {
-  // ... your code goes here
+
 }
 
 function printSplit() {
-  // ... your code goes here
+
 }
 
 function clearSplits() {
-  // ... your code goes here
+
 }
 
 function setStopBtn() {
-  // ... your code goes here
+  btnLeftElement.innerHTML = 'STOP';
 }
 
 function setSplitBtn() {
-  // ... your code goes here
+  btnRightElement.innerHTML = 'SPLIT';
 }
 
 function setStartBtn() {
-  // ... your code goes here
+  btnLeftElement.innerHTML = 'START';
 }
 
 function setResetBtn() {
-  // ... your code goes here
+  btnRightElement.innerHTML = 'RESET';
 }
 
 // Start/Stop Button
 btnLeftElement.addEventListener('click', () => {
-  // ... your code goes here
+  if (btnLeftElement.className === 'btn start') {
+    setStopBtn();
+    setSplitBtn();
+    btnLeftElement.classList.toggle('start');
+    btnLeftElement.classList.toggle('stop');
+    btnRightElement.classList.toggle('reset');
+    btnRightElement.classList.toggle('split');
+    chronometer.start(printTime);
+  } else {
+    setStartBtn();
+    setResetBtn()
+    btnLeftElement.classList.toggle('start');
+    btnLeftElement.classList.toggle('stop');
+    btnRightElement.classList.toggle('reset');
+    btnRightElement.classList.toggle('split');
+    chronometer.stop();
+  }
 });
 
 // Reset/Split Button
 btnRightElement.addEventListener('click', () => {
   // ... your code goes here
+  if (btnRightElement.className === 'btn split') {
+    let createList = document.createElement('li');
+    createList.appendChild(document.createTextNode(chronometer.split()))
+    splitsElement.appendChild(createList);
+  } 
 });
+
+
