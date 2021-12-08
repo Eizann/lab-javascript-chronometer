@@ -35,27 +35,38 @@ function printMilliseconds() {
 }
 
 function printSplit() {
-
+  const createList = document.createElement('li');
+  createList.appendChild(document.createTextNode(chronometer.split()))
+  splitsElement.appendChild(createList);
 }
 
 function clearSplits() {
-
+  chronometer.currentTime = 0;
+  printTime();
 }
 
 function setStopBtn() {
   btnLeftElement.innerHTML = 'STOP';
+  btnLeftElement.classList.toggle('start');
+  btnLeftElement.classList.toggle('stop');
 }
 
 function setSplitBtn() {
   btnRightElement.innerHTML = 'SPLIT';
+  btnRightElement.classList.toggle('reset');
+  btnRightElement.classList.toggle('split');
 }
 
 function setStartBtn() {
   btnLeftElement.innerHTML = 'START';
+  btnLeftElement.classList.toggle('start');
+  btnLeftElement.classList.toggle('stop');
 }
 
 function setResetBtn() {
   btnRightElement.innerHTML = 'RESET';
+  btnRightElement.classList.toggle('reset');
+  btnRightElement.classList.toggle('split');
 }
 
 // Start/Stop Button
@@ -63,30 +74,16 @@ btnLeftElement.addEventListener('click', () => {
   if (btnLeftElement.className === 'btn start') {
     setStopBtn();
     setSplitBtn();
-    btnLeftElement.classList.toggle('start');
-    btnLeftElement.classList.toggle('stop');
-    btnRightElement.classList.toggle('reset');
-    btnRightElement.classList.toggle('split');
     chronometer.start(printTime);
   } else {
     setStartBtn();
     setResetBtn()
-    btnLeftElement.classList.toggle('start');
-    btnLeftElement.classList.toggle('stop');
-    btnRightElement.classList.toggle('reset');
-    btnRightElement.classList.toggle('split');
     chronometer.stop();
   }
 });
 
 // Reset/Split Button
 btnRightElement.addEventListener('click', () => {
-  // ... your code goes here
-  if (btnRightElement.className === 'btn split') {
-    let createList = document.createElement('li');
-    createList.appendChild(document.createTextNode(chronometer.split()))
-    splitsElement.appendChild(createList);
-  } 
+  if (btnRightElement.className === 'btn split') printSplit();
+  if (btnRightElement.className === 'btn reset') clearSplits();
 });
-
-
